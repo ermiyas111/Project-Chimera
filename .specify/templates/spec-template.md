@@ -90,6 +90,17 @@
 - **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
 - **FR-005**: System MUST [behavior, e.g., "log all security events"]
 
+### Constitution Compliance (MANDATORY)
+
+- **CC-001**: The specification MUST include a `SOUL.md` when the feature creates or updates an influencer persona. `SOUL.md` MUST
+  declare persona boundaries, forbidden content, allowed tones, and Judge acceptance criteria.
+- **CC-002**: Any external integration described in this spec MUST reference an MCP adapter and MUST NOT require Workers to perform
+  direct platform API calls. Include the MCP adapter name and expected contract.
+- **CC-003**: If the feature involves economic activity, the spec MUST describe wallet provisioning via Coinbase AgentKit (or approved
+  equivalent) and the events that will be recorded to the MCP "Sense" flight recorder.
+- **CC-004**: The spec MUST reference the persistence schema in `technical.md` for multimodal metadata storage and lifecycle management.
+
+
 *Example of marking unclear requirements:*
 
 - **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]

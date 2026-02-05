@@ -31,7 +31,20 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Gates (Project Chimera Factory - minimal required checks):
+
+- `SPEC-CENTRICITY`: Confirm `/specs/[###-feature]/functional.md` and `/specs/[###-feature]/technical.md` exist and define
+  acceptance criteria and data schemas.
+- `SWARM_TOPOLOGY`: Plan MUST declare the Planner, Worker, and Judge roles for the feature and identify which tasks are executed by
+  stateless Workers and which validations are performed by Judges.
+- `ARCHITECTURAL_ABSTRACTION`: Any external platform integration listed in the plan MUST reference an MCP adapter and NOT describe
+  direct API calls from Worker logic.
+- `ECONOMIC_GOVERNANCE` (if influencers or payments involved): Plan MUST include wallet provisioning steps via Coinbase AgentKit and
+  logging to the MCP "Sense" flight recorder.
+- `PERSONA_INTEGRITY` (for influencer specs): Plan MUST reference the `SOUL.md` file and include acceptance tests that map to its rules.
+- `PERSISTENCE`: Plan MUST reference the storage schema defined in `technical.md` and specify where metadata will be stored.
+
+Document gate results explicitly in this section. Any gate failing MUST block Phase 0 research until remediated.
 
 ## Project Structure
 

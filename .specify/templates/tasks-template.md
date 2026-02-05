@@ -184,6 +184,15 @@ Examples of foundational tasks (adjust based on your project):
 - Core implementation before integration
 - Story complete before moving to next priority
 
+## Constraints Derived from Constitution
+
+- External integrations MUST be implemented only via MCP adapters; tasks MUST NOT include steps that perform direct API calls to
+  external platforms from Worker code.
+- Include Judge tasks: For influencer-related stories, add tasks that implement Judge validations against `SOUL.md` and produce
+  machine-readable accept/reject outputs.
+- Add tasks for wallet provisioning and Sense flight recorder logging when economic activity is part of the feature.
+
+
 ### Parallel Opportunities
 
 - All Setup tasks marked [P] can run in parallel
