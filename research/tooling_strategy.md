@@ -84,6 +84,14 @@ This file currently contains a single HTTP proxy. The configuration below extend
 - **Data access**: Postgres access uses read-only credentials unless elevated by Planner approval.
 - **Traceability**: All Worker actions must include `spec_id`, `task_id`, `agent_role`, and `trace_id` in MCP-observed logs.
 
+## Automated Governance (CI + AI Review)
+
+The Autonomous Oversight layer enforces a "Judge" gate before changes can be trusted:
+
+- **CI Gate**: GitHub Actions runs `make build` and `make test` on push and pull_request to `main`. CI fails if tests fail.
+- **AI Review Gate**: Code review policies require spec alignment against `specs/` and `skills/README.md`, security checks for
+  hardcoded API keys (especially Coinbase AgentKit), and Digital Soul consistency against `specs/core/spec.md`.
+
 ## Open Items
 
 - Replace `/path/to/project-root` with the actual repository root.

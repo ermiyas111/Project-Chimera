@@ -1,0 +1,5 @@
+review:
+  instructions:
+    - "Spec Alignment: Compare the PR changes against specs/ and skills/README.md. Flag any deviations from the defined I/O contracts."
+    - "Security: Scan for hardcoded API keys (especially Coinbase AgentKit) and unsanitized inputs."
+    - "Soul Consistency: Ensure any generated content or logic adheres to the 'Digital Soul' defined in specs/core/spec.md."
