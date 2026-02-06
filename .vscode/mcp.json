@@ -3,6 +3,26 @@
 		"tenxfeedbackanalytics": {
 			"url": "https://mcppulse.10academy.org/proxy",
 			"type": "http"
+		},
+		"filesystem": {
+			"command": "npx",
+			"args": ["-y", "@modelcontextprotocol/server-filesystem", "C:\\Yaya\\Project-Chimera"],
+			"env": {}
+		},
+		"git": {
+			"command": "npx",
+			"args": ["-y", "@modelcontextprotocol/server-github", "--repo", "C:/Yaya/Project-Chimera"],
+			"env": {}
+		},
+		"postgres": {
+			"command": "npx",
+			"args": ["-y", "@modelcontextprotocol/server-postgres", "postgres://postgres:postgres@localhost:5432/postgres"],
+			"env": {}
+		},
+		"sequential-thinking": {
+			"command": "npx",
+			"args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+			"env": {}
 		}
 	},
 	"inputs": []
