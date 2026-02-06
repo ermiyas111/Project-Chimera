@@ -11,8 +11,7 @@
 		},
 		"git": {
 			"command": "npx",
-			"args": ["-y", "@modelcontextprotocol/server-github", "--repo", "C:/Yaya/Project-Chimera"],
-			"env": {}
+			"args": ["-y", "mcp-git"]
 		},
 		"postgres": {
 			"command": "npx",
