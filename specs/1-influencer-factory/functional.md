@@ -1,25 +1,47 @@
 # Functional Specification: Autonomous Influencer Factory
 
-## High-level workflow
+## User Stories (Agent Roles)
 
-1. Planner observes signals (trend_fetcher) → composes tasks with `spec_id` and requirements.
-2. Planner schedules tasks to Workers via the task queue (MCP-observed).  
-3. Worker executes stateless task (e.g., fetch trends, generate draft, create asset metadata) and emits structured output.
-4. Judge validates Worker output against `SOUL.md` and either accepts, rejects with reasons, or escalates to HITL.
-5. Accepted outputs are persisted; Planner may schedule downstream tasks (publish, promote).
+### Planner Agent
 
-## Agent Roles
+- **Story**: As a Planner Agent, I need to discover trends for a given niche and platform, so that I can prioritize content opportunities.
+	- **Acceptance Criteria**:
+		- Trend discovery returns a ranked list of trends with velocity scores.
+		- Each trend includes a keyword/tag and a numeric velocity score.
+		- The result is associated with the requested niche and platform.
 
-- Planner: responsible for OODA orchestration, task decomposition, budget allocation, and retry/backoff policies.
-- Worker: stateless micro-tasks with strict input/output JSON schema; MUST not call external APIs directly (use MCP adapters).
-- Judge: deterministic rules engine and policy checker that evaluates outputs against `SOUL.md` and constitutional gates.
+- **Story**: As a Planner Agent, I need to orchestrate tasks with clear inputs and deadlines, so that Workers can execute reliably.
+	- **Acceptance Criteria**:
+		- Tasks include `spec_id`, `task_id`, and required inputs.
+		- Tasks can be routed to the correct Worker skill.
 
-## Key workflows (examples)
+### Worker Agent
 
-- Trend Fetching: Planner → Worker(trend_fetcher) → MCP adapters fetch sources → Worker returns ranked list + vectors → Judge (sanity) → Persist
-- Content Generation: Planner → Worker(prompt/template) → Model via MCP → Draft → Judge(SOUL) → Persist/Publish
-- Wallet Action: Planner → Worker(prepare_tx) → Wallet MCP adapter → Sense records event → Confirm
+- **Story**: As a Worker Agent, I need to execute tasks statelessly using MCP tools, so that operations are auditable and secure.
+	- **Acceptance Criteria**:
+		- External interactions are routed through MCP adapters only.
+		- Worker outputs adhere to the skill schemas defined in skills/README.md.
 
-## Human-in-the-Loop (HITL)
+- **Story**: As a Worker Agent, I need to return structured outputs for content generation, so that Judges can validate results.
+	- **Acceptance Criteria**:
+		- Outputs include expected keys for each skill (e.g., `local_path`, `metadata`).
+		- Errors are returned in a consistent, machine-readable format.
 
-- Judges provide confidence scores. Below threshold → create HITL review task assigned to human reviewer; include task context and diffs.
+### Judge Agent
+
+- **Story**: As a Judge Agent, I need to validate Worker outputs against `SOUL.md`, so that influencer behavior remains compliant.
+	- **Acceptance Criteria**:
+		- Outputs violating the Digital Soul are rejected with specific reasons.
+		- Accepted outputs include a verdict and confidence score.
+
+- **Story**: As a Judge Agent, I need to enforce schema compliance, so that invalid outputs never propagate.
+	- **Acceptance Criteria**:
+		- Missing required fields result in rejection.
+		- Data types are validated (e.g., velocity score is numeric).
+
+### Human Reviewer (HITL)
+
+- **Story**: As a Human Reviewer, I need to review low-confidence outputs, so that high-risk decisions are verified.
+	- **Acceptance Criteria**:
+		- Review tasks include context, diff, and reason for escalation.
+		- Feedback from the reviewer is captured and returned to the Planner.
